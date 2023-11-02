@@ -39,15 +39,16 @@ frequency.sort((a, b) => b[1] - a[1])
 let arrLen = Math.ceil(frequency.length / 2) - 1
 const queue = new Array(arrLen)
 
-//create queue
 for (let i = frequency.length - 1; i >= 0; --i) {
 
     const current = frequency[i]
-    const next = frequency[i - 1]
-    if(current && next) {
+    const next = frequency[--i]
+
+    if(current && next && i !== 0) {
+
         const [char1, freq1 ] = frequency.pop()!
         const [char2, freq2 ] = frequency.pop()!
-        --i;
+
         const right = new TreeNode<string>(char1, freq1)
         const left = new TreeNode<string>(char2, freq2)
 
@@ -57,17 +58,29 @@ for (let i = frequency.length - 1; i >= 0; --i) {
         node.right = right
         node.left = left
 
-        queue[--arrLen] = node
+        queue[arrLen] = node
+        --arrLen
 
     } else {
         const root = new TreeNode<string>(current[0], current[1])
-        queue[--arrLen] = root
+        queue[arrLen] = root;
     }
 
 }
 
 
 
-console.log(queue[0])
+
 //create tree
-const tree = new BinaryTree(queue[0])
+
+
+const root = queue[0]
+const tree = new BinaryTree(root)
+for(let i = 1; i < queue.length; ++i) {
+    const node = queue[i]
+    tree.addRecursive(root, node)
+}
+
+
+//  console.log(JSON.stringify(tree))
+ tree.toString()

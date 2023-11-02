@@ -3,8 +3,8 @@ import { TreeNode } from './node';
 export class BinaryTree<T> {
     root: null | TreeNode<T>;
 
-    constructor(root?: T) {
-        this.root = new TreeNode<T>(root) ?? null;
+    constructor(root?: TreeNode<T>) {
+        this.root = root ?? null;
     }
 
 
@@ -19,6 +19,26 @@ export class BinaryTree<T> {
         } else return current //value already exists
 
         return current;
+        
+    }
+
+    private traverse(current: TreeNode<T> | null, cb: (item: TreeNode<T>) => void) {
+        if(current === null) return;
+        cb(current)
+        this.traverse(current.left, cb)
+        this.traverse(current.right, cb)
+    }
+
+    public toString(): void {
+        let stringified = `{ \n[ data: ${ this.root?.data }, freq: ${ this.root?.frequency } ]\n `
+        this.traverse(this.root!, (node: TreeNode<T>) =>{
+
+            if(node.left === null && node.right === null && node.data)
+                stringified += ` \n[ data: ${ node.data }, freq: ${ node.frequency } ]\n `
+        }
+        )
+        stringified += ' }'
+        console.log(stringified)
         
     }
 }
