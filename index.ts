@@ -35,6 +35,8 @@ for(let i = 0, idx = 0; i < dataSample.length; ++i) {
 //inserting popped elements
 //sorts array with least common to most common
 frequency.sort((a, b) => b[1] - a[1])
+console.log({ frequency })
+
 
 let arrLen = Math.ceil(frequency.length / 2) - 1
 const queue = new Array(arrLen)
@@ -69,8 +71,6 @@ for (let i = frequency.length - 1; i >= 0; --i) {
 }
 
 
-
-
 //create tree
 
 
@@ -81,6 +81,4 @@ for(let i = 1; i < queue.length; ++i) {
     tree.addRecursive(root, node)
 }
 
-
-//  console.log(JSON.stringify(tree))
- tree.toString()
+tree.toString()
