@@ -30,14 +30,14 @@ export class BinaryTree<T> {
     }
 
     public toString(): void {
-        let stringified = `{ \n[ data: ${ this.root?.data }, freq: ${ this.root?.frequency } ]\n `
+        let stringified = `{`
         this.traverse(this.root!, (node: TreeNode<T>) =>{
 
-            if(node.left === null && node.right === null && node.data)
+            if(node.left === null && node.right === null && node.data || node.data)
                 stringified += ` \n[ data: ${ node.data }, freq: ${ node.frequency } ]\n `
         }
         )
-        stringified += ' }'
+        stringified += '}'
         console.log(stringified)
         
     }
